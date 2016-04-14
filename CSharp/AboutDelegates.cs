@@ -32,39 +32,39 @@ namespace DotNetKoans.CSharp
 		public void DelegatesAreReferenceTypes()
 		{
 			//If you don't initialize a delegate it will be a null value, just as any other refrence type.
-			BinaryOp op;
-			Assert.Null(FILL_ME_IN);
+			BinaryOp op = null;
+			Assert.Null(op);
 		}
 		[Koan(2)]
 		public void DelegatesCanBeInstantiated()
 		{
 			MyMath math = new MyMath();
 			BinaryOp op = new BinaryOp(math.Add);
-			Assert.Equal(FILL_ME_IN, op.Method.Name);
+			Assert.Equal("Add", op.Method.Name);
 		}
 		[Koan(3)]
 		public void DelegatesCanBeAssigned()
 		{
 			MyMath math = new MyMath();
 			BinaryOp op = math.Add;
-			Assert.Equal(FILL_ME_IN, op.Method.Name);
+			Assert.Equal("Add", op.Method.Name);
 		}
 		[Koan(4)]
 		public void DelegatesCanReferenceStaticMethods()
 		{
 			BinaryOp op = MyMath.Subtract;
-			Assert.Equal(FILL_ME_IN, op.Method.Name);
+			Assert.Equal("Subtract", op.Method.Name);
 		}
 		[Koan(5)]
 		public void MethodsCalledViaDelegate()
 		{
 			MyMath math = new MyMath();
 			BinaryOp op = math.Add;
-			Assert.Equal(FILL_ME_IN, op(3,3));
+			Assert.Equal(6, op(3,3));
 		}
 		private void PassMeTheDelegate(BinaryOp passed)
 		{
-            Assert.Equal(FILL_ME_IN, passed(3,3));
+            Assert.Equal(6, passed(3,3));
         }
 		[Koan(6)]
 		public void DelegatesCanBePassed()
@@ -89,7 +89,7 @@ namespace DotNetKoans.CSharp
 			Assert.Same(a, original);
 			a = MyMath.Subtract;
 			//a is now a different instance
-			Assert.Same(a, original);
+			Assert.NotSame(a, original);
 		}
 		delegate int Curry(int val);
 		public class FunctionalTricks
@@ -109,10 +109,10 @@ namespace DotNetKoans.CSharp
 			FunctionalTricks f = new FunctionalTricks();
 			Curry adding = f.Add5;
 			//So far we've only seen one method attached to a delegate. 
-			Assert.Equal(FILL_ME_IN, adding.GetInvocationList().Length);
+			Assert.Equal(1, adding.GetInvocationList().Length);
 			//However, you can attach multiple methods to a delegate 
 			adding += f.Add10;
-			Assert.Equal(FILL_ME_IN, adding.GetInvocationList().Length);
+			Assert.Equal(2, adding.GetInvocationList().Length);
 		}
 		[Koan(10)]
 		public void OnlyLastResultReturned()
@@ -121,7 +121,7 @@ namespace DotNetKoans.CSharp
 			Curry adding = f.Add5;
 			adding += f.Add10;
 			//Delegates may have more than one method attached, but only the result of the last method is returned.
-			Assert.Equal(FILL_ME_IN, adding(5));
+			Assert.Equal(15, adding(5));
 		}
 		[Koan(11)]
 		public void RemovingMethods()
